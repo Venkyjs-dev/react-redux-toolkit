@@ -10,7 +10,7 @@ const initialState = {
 export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
   return axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
     return res.data.map((user) => {
-      return user.id;
+      return user;
     });
   });
 });
@@ -30,7 +30,7 @@ const userSlice = createSlice({
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.loading = false;
       state.users = [];
-      state.error = action.payload.message;
+      state.error = action.error.message;
     });
   },
 });
